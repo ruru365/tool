@@ -1,6 +1,7 @@
 <script lang="ts" src="./index.ts"></script>
 
 <template>
+  <input class="search" type="text" ref="searchDom" @keypress.enter="search()" v-model="searchText"/>
   <div class="main">
     <div class="hide-iframe-box" ref="iframe"></div>
     <div class="left">
@@ -19,6 +20,17 @@
 </template>
 
 <style scoped>
+.search{
+  margin: 10px auto;
+  height: 30px;
+  line-height: 30px;
+  display: block;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0 10px;
+  border-radius: 5px;
+  width: 600px;
+}
 .main {
   display: flex;
 }

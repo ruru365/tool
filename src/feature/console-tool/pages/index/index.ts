@@ -13,10 +13,13 @@ export default {
     const editor = ref<HTMLElement | null>(null)
     const iframe = ref<HTMLElement | null>(null)
     const result = ref<HTMLElement | null>(null)
+    const searchDom = ref<HTMLElement | null>(null)
+    const searchText = ref('')
     let editorCM: CodeMirror.Editor | null = null
     let resultCM: CodeMirror.Editor | null = null
 
     onMounted(() => {
+      searchDom.value?.focus();
       if (editor.value) {
         editorCM = initCodeMirror(editor.value)
       }
@@ -38,11 +41,18 @@ export default {
 
     }
 
+    function search() {
+      window.open("https://www.google.com/search?q=" + searchText.value)
+    }
+
     return {
       iframe,
       editor,
       count,
       result,
+      search,
+      searchDom,
+      searchText: searchText,
       run
     }
   }
