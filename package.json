@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "codemirror": "^5.65.15",
+    "rxjs": "^7.8.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },

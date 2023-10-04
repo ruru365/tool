@@ -1,22 +1,39 @@
 import { ref, onMounted } from 'vue'
 import CodeMirror from 'codemirror'
+import { Subject } from 'rxjs'
+declare global {
+  interface Window { IframeSub: Subject<any>; }
+}
+window.IframeSub = new Subject();
+window.IframeSub.next
+
 export default {
   setup() {
     const count = ref(0)
     const editor = ref<HTMLElement | null>(null)
     const iframe = ref<HTMLElement | null>(null)
-    const text = ref('')
-    let codeMirror: CodeMirror.Editor | null = null
+    const result = ref<HTMLElement | null>(null)
+    let editorCM: CodeMirror.Editor | null = null
+    let resultCM: CodeMirror.Editor | null = null
 
     onMounted(() => {
       if (editor.value) {
-        codeMirror = initCodeMirror(editor.value)
+        editorCM = initCodeMirror(editor.value)
       }
+      if (result.value) {
+        resultCM = initCodeMirror(result.value)
+      }
+      window.IframeSub.subscribe({
+        next: (log: any[]) => {
+          const result = log.map(item => JSON.stringify(item)).join('\n');
+          resultCM?.setValue(result)
+        }
+      })
     })
 
     function run() {
-      if (iframe.value && codeMirror) {
-        exec(iframe.value, codeMirror.getDoc().getValue())
+      if (iframe.value && editorCM) {
+        exec(iframe.value, editorCM.getDoc().getValue())
       }
 
     }
@@ -25,16 +42,18 @@ export default {
       iframe,
       editor,
       count,
-      text,
+      result,
       run
     }
   }
 }
 
+
 function initCodeMirror(dom: HTMLElement) {
   return CodeMirror(dom, {
-    value: "function myScript(){return 1000;}\n",
-    mode: "javascript"
+    value: "console.log(123)\n",
+    mode: {name: "javascript", json: true},
+    lineNumbers: true
   });
 }
 
@@ -54,7 +73,8 @@ function wrapCode(code: string) {
     `<script>
   let oConsole = window.console;
   window.console = {
-    log: () => {
+    log: (...arguments) => {
+      top.IframeSub && top.IframeSub.next(arguments)
       oConsole.log(...arguments)
     }
   }

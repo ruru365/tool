@@ -10,7 +10,10 @@
       <div class="editor" ref="editor"></div>
     </div>
     <div class="right">
-      <div class="result"></div>
+      <div class="menu">
+        <button @click="run()">COPY</button>
+      </div>
+      <div class="result" ref="result"></div>
     </div>
   </div>
 </template>
@@ -34,8 +37,6 @@
 
 .result {
   border: 1px solid #ccc;
-  background-color: #4c4c4c;
-  height: 400px;
 }
 
 .hide-iframe-box {

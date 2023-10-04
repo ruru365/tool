@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ConsoleToolPage from '@/feature/console-tool/pages/index/index.vue'
+import ConsoleToolPage from '../../feature/console-tool/pages/index/index.vue'
 import HelloWorldVue from '../../feature/console-tool/pages/hello-world/index.vue'
 
 const routes = [
