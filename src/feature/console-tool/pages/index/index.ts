@@ -42,7 +42,12 @@ export default {
     }
 
     function search() {
-      window.open("https://www.google.com/search?q=" + searchText.value)
+      const isURL = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(searchText.value)
+      if (isURL) {
+        window.open('http://' + searchText.value)
+      } else {
+        window.open("https://www.google.com/search?q=" + searchText.value)
+      }
     }
 
     return {

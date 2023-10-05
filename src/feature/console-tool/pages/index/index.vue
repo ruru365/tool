@@ -30,6 +30,7 @@
   padding: 0 10px;
   border-radius: 5px;
   width: 600px;
+  font-size: 16px;
 }
 .main {
   display: flex;
