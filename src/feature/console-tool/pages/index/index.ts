@@ -46,7 +46,7 @@ export default {
       if (isURL) {
         window.open('http://' + searchText.value)
       } else {
-        window.open("https://www.google.com/search?q=" + searchText.value)
+        window.open("https://searxng.online/search?q=" + searchText.value)
       }
     }
 
