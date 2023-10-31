@@ -19,7 +19,7 @@ export default {
     let resultCM: CodeMirror.Editor | null = null
 
     onMounted(() => {
-      //searchDom.value?.focus();
+      searchDom.value?.focus();
       if (editor.value) {
         editorCM = initCodeMirror(editor.value)
       }
